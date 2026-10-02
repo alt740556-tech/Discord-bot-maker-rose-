@@ -1,0 +1,7 @@
+DISCORD_TOKEN=your_discord_bot_token_here
+DISCORD_CLIENT_ID=your_discord_client_id_here
+BOT_NAME=Rose AI
+BOT_DESCRIPTION=help: Show available commands
+ping: Check the bot latency
+status: Show bot status
+joke: Tell a joke

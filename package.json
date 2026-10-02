@@ -1,0 +1,14 @@
+{
+  "name": "rose-ai-discord-bot-maker",
+  "version": "1.0.0",
+  "description": "Rose AI — a Discord bot maker that turns a description into a working bot and ships with Render-ready settings.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.2",
+    "dotenv": "^16.4.1",
+    "express": "^4.19.2"
+  }
+}

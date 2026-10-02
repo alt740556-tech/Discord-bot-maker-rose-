@@ -1,0 +1,80 @@
+const form = document.getElementById('bot-form');
+const output = document.getElementById('env-output');
+const statusBox = document.getElementById('status-box');
+const inviteLink = document.getElementById('invite-link');
+
+function buildEnvText({ botName, token, clientId, description }) {
+  return [
+    `DISCORD_TOKEN=${token || 'your_token_here'}`,
+    `DISCORD_CLIENT_ID=${clientId || 'your_client_id_here'}`,
+    `BOT_NAME=${botName || 'Rose AI'}`,
+    `BOT_DESCRIPTION=${description || 'help: Show commands\nping: Check bot status'}`
+  ].join('\n');
+}
+
+function showStatus(message, type = 'info') {
+  statusBox.textContent = message;
+  statusBox.className = `status-box ${type}`;
+}
+
+async function submitBuild(event) {
+  event.preventDefault();
+  const formData = new FormData(form);
+  const payload = {
+    botName: formData.get('botName') || 'Rose AI',
+    description: formData.get('description') || 'help: Show commands\nping: Check bot status',
+    token: formData.get('token') || '',
+    clientId: formData.get('clientId') || ''
+  };
+
+  if (!payload.token) {
+    showStatus('Add your Discord bot token before generating the config.', 'info');
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/build', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || 'Unable to generate config.');
+    }
+
+    output.textContent = data.renderEnv;
+    showStatus('Config generated. Add it to Render and redeploy your service.', 'success');
+
+    if (data.inviteLink) {
+      inviteLink.href = data.inviteLink;
+      inviteLink.textContent = 'Invite Bot';
+    } else {
+      inviteLink.href = '#';
+      inviteLink.textContent = 'Add Client ID to generate invite';
+    }
+  } catch (error) {
+    showStatus(error.message, 'info');
+  }
+}
+
+form.addEventListener('submit', submitBuild);
+
+document.getElementById('fill-demo').addEventListener('click', () => {
+  const demoValues = {
+    botName: 'Rose AI',
+    token: 'your_discord_bot_token_here',
+    clientId: 'your_discord_client_id_here',
+    description: 'help: Show all commands\nping: Check bot latency\nstatus: Show bot status\nhello: Greet the user\nquote: Share a random quote'
+  };
+
+  form.elements.botName.value = demoValues.botName;
+  form.elements.token.value = demoValues.token;
+  form.elements.clientId.value = demoValues.clientId;
+  form.elements.description.value = demoValues.description;
+
+  output.textContent = buildEnvText(demoValues);
+  showStatus('Demo values loaded. Replace the placeholder token and client ID.', 'info');
+});

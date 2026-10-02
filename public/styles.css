@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rose AI | Discord Bot Maker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <header class="topbar">
+      <div class="logo-wrap">
+        <div class="logo-mark">R</div>
+        <div>
+          <p class="brand-eyebrow">Discord Bot Maker</p>
+          <h1>Rose AI</h1>
+        </div>
+      </div>
+      <a class="render-pill" href="https://render.com" target="_blank" rel="noreferrer">Render Ready</a>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="tag">Pink • Blue • White</span>
+          <h2>Build a custom Discord bot from a description.</h2>
+          <p>
+            Make a bot, add your token, define the commands in plain English, and deploy it with Render.
+          </p>
+        </div>
+        <div class="hero-card">
+          <div class="mini-header">
+            <span class="dot pink"></span>
+            <span class="dot blue"></span>
+            <span class="dot white"></span>
+          </div>
+          <div class="mini-body">
+            <p>Bot name</p>
+            <strong>Rose AI</strong>
+            <p class="muted">Description-based commands</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="builder-panel">
+        <form id="bot-form">
+          <div class="field-grid">
+            <label>
+              <span>Bot Name</span>
+              <input type="text" name="botName" value="Rose AI" placeholder="Rose AI" />
+            </label>
+
+            <label>
+              <span>Discord Bot Token</span>
+              <input type="password" name="token" placeholder="Paste your bot token" required />
+            </label>
+
+            <label>
+              <span>Discord Client ID</span>
+              <input type="text" name="clientId" placeholder="Optional for invite link" />
+            </label>
+          </div>
+
+          <label>
+            <span>Bot Description / Commands</span>
+            <textarea name="description" rows="10" placeholder="Example:
+help: Show available commands
+ping: Check the bot latency
+status: Show server status
+joke: Tell a random joke">help: Show all commands
+ping: Check the bot latency
+status: Show bot status
+joke: Tell a funny joke</textarea>
+          </label>
+
+          <div class="button-row">
+            <button type="submit" class="primary">Generate Rose AI Config</button>
+            <button type="button" class="secondary" id="fill-demo">Load Demo</button>
+          </div>
+        </form>
+
+        <aside class="result-panel">
+          <h3>Render setup</h3>
+          <div id="status-box" class="status-box info">
+            Fill in the form and generate your environment variables.
+          </div>
+
+          <pre id="env-output">DISCORD_TOKEN=your_token_here
+DISCORD_CLIENT_ID=your_client_id_here
+BOT_NAME=Rose AI
+BOT_DESCRIPTION=help: Show commands
+ping: Check latency</pre>
+
+          <div class="invite-wrap">
+            <a id="invite-link" href="#" class="invite-link" target="_blank" rel="noreferrer">Invite Bot</a>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
